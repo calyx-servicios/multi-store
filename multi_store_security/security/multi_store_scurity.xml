@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="account_multi_store.account_journal_store_rule" model="ir.rule">
+        <field name="name">Journal multi-store</field>
+        <field name="model_id" ref="account.model_account_journal"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('store_id','=',False),('store_id','in',user.store_ids.ids)]</field>
+        <field name="perm_read" eval="False"/>
+    </record>
+
+    <record id="account_multi_store.account_move_store_rule" model="ir.rule">
+        <field name="name">Account Entry</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="global" eval="True"/>
+        <field name="perm_read" eval="False"/>
+        <field name="domain_force">['|',('journal_id.store_id','=',False),('journal_id.store_id','in',user.store_ids.ids)]</field>
+    </record>
+
+    <record id="account_multi_store.account_payment_store_rule" model="ir.rule">
+        <field name="name">Payment multi-store</field>
+        <field name="model_id" ref="account.model_account_payment"/>
+        <field name="global" eval="True"/>
+        <field name="perm_read" eval="False"/>
+        <field name="domain_force">['|',('journal_id.store_id','=',False),('journal_id.store_id','in',user.store_ids.ids)]</field>
+    </record>
+
+    <record id="base_multi_store.res_store_rule" model="ir.rule">
+        <field name="name">multi-store store rule</field>
+        <field name="model_id" ref="base_multi_store.model_res_store"/>
+        <field name="domain_force">[('id','in',user.store_ids.ids)]</field>
+        <field name="groups" eval="[(4,ref('base.group_user')),(4,ref('base.group_portal')), (4,ref('base.group_public'))]"/>
+    </record>
+
+    <record id="base_multi_store.res_store_rule_manager" model="ir.rule">
+        <field name="name">multi-store store rule</field>
+        <field name="model_id" ref="base_multi_store.model_res_store"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('base.group_erp_manager'))]"/>
+    </record>
+
+    <record id="base_multi_store.multi_company_store_rule" model="ir.rule">
+        <field name="name">Store multi-company rule</field>
+        <field name="model_id" ref="base_multi_store.model_res_store"/>
+        <field eval="True" name="global"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="purchase_multi_store.purchase_order_store_rule" model="ir.rule">
+        <field name="name">Purchase Order multi-store</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="global" eval="True"/>
+        <field name="perm_read" eval="False"/>
+        <field name="domain_force">['|',('picking_type_id.store_id','=',False),('picking_type_id.store_id','in',user.store_ids.ids)]</field>
+    </record>
+
+    <record id="sale_multi_store.sale_order_store_rule" model="ir.rule">
+        <field name="name">Sale Order multi-store</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="global" eval="True"/>
+        <field name="perm_read" eval="False"/>
+        <field name="domain_force">['|',('warehouse_id.store_id','=',False),('warehouse_id.store_id','in',user.store_ids.ids)]</field>
+    </record>
+
+    <record id="stock_multi_store.stock_warehouse_store_rule" model="ir.rule">
+        <field name="name">Warehouse multi-store</field>
+        <field name="model_id" ref="stock.model_stock_warehouse"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('store_id','=',False),('store_id','in',user.store_ids.ids)]</field>
+        <field name="perm_read" eval="False"/>
+    </record>
+
+    <record id="stock_multi_store.stock_picking_type_store_rule" model="ir.rule">
+        <field name="name">Stock Picking Type multi-store</field>
+        <field name="model_id" ref="stock.model_stock_picking_type"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('warehouse_id.store_id','=',False),('warehouse_id.store_id','in',user.store_ids.ids)]</field>
+        <field name="perm_read" eval="False"/>
+    </record>
+
+    <record id="stock_multi_store.stock_picking_store_rule" model="ir.rule">
+        <field name="name">Stock Picking multi-store</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="global" eval="True"/>
+        <field name="perm_read" eval="False"/>
+        <field name="domain_force">['|',('picking_type_id.warehouse_id.store_id','=',False),('picking_type_id.warehouse_id.store_id','in',user.store_ids.ids)]</field>
+    </record>
+
+</odoo>
+
