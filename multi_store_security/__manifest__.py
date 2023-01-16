@@ -6,11 +6,11 @@
         access rules 
     """,
     "author": "Calyx Servicios S.A.",
-    "maintainers": ["ParadisoCristian"],
+    "maintainers": ["ParadisoCristian", "PerezGabriela"],
     "website": "http://odoo.calyx-cloud.com.ar/",
     "license": "AGPL-3",
     "category": "Custom",
-    "version": "13.0.1.0.0",
+    "version": "15.0.1.0.0",
     "depends": [
         "stock_multi_store_users",
         "purchase_multi_store",
